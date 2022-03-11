@@ -13,6 +13,14 @@
   </style>
   <script>
     var websock;
+    function populateStorage() {
+  localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
+  localStorage.setItem('font', document.getElementById('font').value);
+  localStorage.setItem('image', document.getElementById('image').value);
+
+  setStyles();
+}
+
     function start() {
       websock = new WebSocket('ws://' + 'fan.local' + ':81/');
       websock.onopen = function (evt) { console.log('websock open'); };
@@ -40,6 +48,26 @@
 
 <body onload="javascript:start();">
   <h1>ESP8266 WebSocket Demo</h1>
+  <div>
+    <label for="bgcolor">Choose background color:</label>
+  <input class="color" id="bgcolor" value="FF0000">
+  </div>
+  <div>
+    <label for="font">Choose font style:</label>
+    <select id="font">
+      <option value="'Open Sans Condensed', sans-serif" selected>Sans-serif</option>
+      <option value="'Bitter', serif">Serif</option>
+      <option value="'Ubuntu Mono'">Monospace</option>
+    </select>
+  </div>
+  <div>
+    <label for="image">Choose image:</label>
+    <select id="image">
+      <option value="images/firefoxos.png" selected>Firefox</option>
+      <option value="images/crocodile.png">Crocodile</option>
+      <option value="images/tortoise.png">Tortoise</option>
+    </select>
+  </div>
   <div id="ledstatus"><b>LED</b></div>
   <button id="ledon" type="button" onclick="buttonclick(this);">On</button>
   <button id="ledoff" type="button" onclick="buttonclick(this);">Off</button>
