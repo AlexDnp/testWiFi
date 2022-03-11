@@ -13,13 +13,35 @@
   </style>
   <script>
     var websock;
-    function populateStorage() {
-  localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
-  localStorage.setItem('font', document.getElementById('font').value);
-  localStorage.setItem('image', document.getElementById('image').value);
+    if (!localStorage.getItem('bgcolor')) {
+      populateStorage();
+    } else {
+      setStyles();
+    }
 
-  setStyles();
-}
+
+    function setStyles() {
+      var currentColor = localStorage.getItem('bgcolor');
+      var currentFont = localStorage.getItem('font');
+      var currentImage = localStorage.getItem('image');
+
+      document.getElementById('bgcolor').value = currentColor;
+      document.getElementById('font').value = currentFont;
+      document.getElementById('image').value = currentImage;
+
+      htmlElem.style.backgroundColor = '#' + currentColor;
+      pElem.style.fontFamily = currentFont;
+      imgElem.setAttribute('src', currentImage);
+    }
+
+
+    function populateStorage() {
+      localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
+      localStorage.setItem('font', document.getElementById('font').value);
+      localStorage.setItem('image', document.getElementById('image').value);
+
+      setStyles();
+    }
 
     function start() {
       websock = new WebSocket('ws://' + 'fan.local' + ':81/');
@@ -50,7 +72,7 @@
   <h1>ESP8266 WebSocket Demo</h1>
   <div>
     <label for="bgcolor">Choose background color:</label>
-  <input class="color" id="bgcolor" value="FF0000">
+    <input class="color" id="bgcolor" value="FF0000">
   </div>
   <div>
     <label for="font">Choose font style:</label>
