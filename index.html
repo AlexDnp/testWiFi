@@ -403,15 +403,15 @@
       });
     });
 
-    ajax.x = function () {
-      var xhr;
-      if (window.XMLHttpRequest) {
-        xhr = new XMLHttpRequest();
-      } else {
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      return xhr;
-    };
+    // ajax.x = function () {
+    //   var xhr;
+    //   if (window.XMLHttpRequest) {
+    //     xhr = new XMLHttpRequest();
+    //   } else {
+    //     xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    //   }
+    //   return xhr;
+    // };
 
     function sendData(argname, argdat) {
       let js = "{" + argname + ":" + argdat + "}";
@@ -468,6 +468,7 @@
       var json = JSON.parse(response);
       document.getElementById("sm").style.visibility = 'visible';
       setTimeout(timer500ms, 500);
+      document.getElementById('main').disabled = false;
       for (var key in json) {
         var data = json[key];
         switch (key) {
@@ -599,6 +600,7 @@
     } else {
       clearTimeout(timerState);
       document.getElementById('connectBLE').innerText = 'Подключить';
+      document.getElementById('main').disabled = true;
     }
   }
 
