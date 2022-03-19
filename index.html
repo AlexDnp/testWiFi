@@ -4,143 +4,613 @@
 <head>
   <meta charset="windows-1251">
   <meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable=0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
   <link rel="manifest" href="manifest.json">
   <title>Рекуператор воздуха</title>
+
   <style>
+    /* * {
+        box-sizing: border-box;
+    } */
+
     body {
-      background-color: #808080;
-      font-family: Arial, Helvetica, Sans-Serif;
-      Color: #000000;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: rgb(92, 92, 92);
+    }
+
+
+    /* Increase the font size of the h1 element */
+    .header h1 {
+      font-size: 40px;
+    }
+
+    /* Style the top navigation bar */
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    /* Style the navigation bar links */
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+
+    /* Right-aligned link */
+    .navbar a.right {
+      float: right;
+    }
+
+    /* Change color on hover */
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+
+    /* Fake image, just for this example */
+    .container {
+      overflow: auto;
+      background-color: #aaa;
+      padding: 2px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      height: 90vh;
+      /* padding: 20px; */
+    }
+
+    .container::-webkit-scrollbar {
+      width: 5px;
+      background-color: #f9f9fd;
+
+    }
+
+    .container::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #18aaaa;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+      top: 8px;
+      /* left: 50px; */
+    }
+
+    .switch input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgb(109, 109, 109);
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    label {
+      font-size: 25px;
+      padding: 5px;
+    }
+
+    input[type=radio] {
+      margin: 0.4rem;
+      top: 15px;
+      /* left: 0; */
+      height: 25px;
+      width: 25px;
+      background-color: #eee;
+      border-radius: 50%;
+    }
+
+    .page::-webkit-scrollbar {
+      width: 5px;
+      background-color: #f9f9fd;
+
+    }
+
+    .page::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #18aaaa;
+    }
+
+    .page {
+      overflow: auto;
+      padding: 2px;
+      /* resize: both; */
+      width: 100%;
+      height: 100%;
+      padding-left: 10%;
+      padding-right: 10%;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      color: white;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    /* Create two equal columns that sits next to each other */
+    .column {
+      flex: 50%;
+      padding: 10px;
+      /* Should be removed. Only for demonstration */
+    }
+
+    @media (max-width: 400px) {
+      .page {
+        padding-left: 0%;
+        padding-right: 5px;
+        margin-right: 5px;
+      }
+    }
+
+    img {
+      /* margin-top: 70px;*/
+      width: 30px;
+      -webkit-animation-name: rotation;
+      -webkit-animation-duration: 10s;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-name: rotation;
+      -moz-animation-duration: 10s;
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-timing-function: linear;
+      -o-animation-name: rotation;
+      -o-animation-duration: 10s;
+      -o-animation-iteration-count: infinite;
+      -o-animation-timing-function: linear;
+      animation-name: rotation;
+      animation-duration: 10s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+
+    }
+
+    @-webkit-keyframes rotation {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-moz-keyframes rotation {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-o-keyframes rotation {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rotation {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(720deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
     }
   </style>
-  <script>
-    var websock;
-
-
-    function start() {
-      websock = new WebSocket('ws://' + 'fan.local' + ':81/');
-      websock.onopen = function (evt) { console.log('websock open'); };
-      websock.onclose = function (evt) { console.log('websock close'); };
-      websock.onerror = function (evt) { console.log(evt); };
-      websock.onmessage = function (evt) {
-        console.log(evt);
-        var e = document.getElementById('ledstatus');
-        if (evt.data === 'ledon') {
-          e.style.color = 'red';
-        }
-        else if (evt.data === 'ledoff') {
-          e.style.color = 'black';
-        }
-        else {
-          console.log('unknown event');
-        }
-      };
-    }
-    function buttonclick(e) {
-      websock.send(e.id);
-    }
-  </script>
 </head>
 
-<body onload="javascript:start();">
-  <h1>ESP8266 WebSocket Demo</h1>
-  <div>
-    <label for="bgcolor">Choose background color:</label>
-    <input class="color" id="bgcolor" value="FFFF00">
+<!-- <body onload="javascript:start();"> -->
+
+<body>
+
+  <div class="container">
+    <button class="" id="connectBLE" type="button" style=" width: 150px;">Подключить</button>
+    <fieldset id="main" style="border: hidden;" disabled>
+      <span id="sm" style="font-size: 25px; color: red; visibility: true;">&#10040;</span>
+      <img id="imgfan" style="visibility: hidden;" alt=""
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAMdElEQVR42u2beXDUVbbHP+fXSzrdCVkBWUMIhECAQFgk4CCSsAQRRFFn9MnMsMzoExHDo9CpqaJm6o2MpYRFhtJJQvkswREe8gZlB/HNI6zKFvYwASFsgRCyduhO/+77IwtJuoF00g0zNXz/6vr97nLO93fOueeeexse4REe4V8Z8qAmSlm8ortRVwmCio0MCuo4a9SwiL4d2oUBHLl0uWjJtt2FN8vK8hVypsopR7bPm5r7T03AqA8+sxk0xzMi2gQgRYTWAG1bBfH+C+NoHWxr0L6gpIx5azZRUFoGgEIVoGSHUvp6l27+etvcKeX/FASMSf9zvGB4S+BnIhLU+P38CSkM7tqJq8WlrD98AoCJ/eNp2yqIfXkX+P36HW5jKihVSv0FF4s3z5124h+SgNEffhKnacb/FJFJApqnNhaTkdWvv4JB03jts6+4eLMYgKiIUJa/OgmXrvPi8pVUVlV5nEOBDnylo/92y9vTT/tCbmNLBxiycHVgmJT+DpgtIqZ7tQ0KMGPQqrm5fKu07vmlohIADJqGzWKmsswzATXETtaQCanpWUuKVPD8vXNetLdEfq0lnZ9e8umAUCk9LCJz76c8QKXzjmKBpjvcW8xGj23uBkHMIjI3TMoOjf4wY8BDIWDswqxpusuVrYnENrWP3elE1SptusNXYM1vpRSVDmeTZRChh0HTdo1dmDXtgRIwLj3rPREyRCTAm34uXVFV5apWut5XryXA6dJxKeXNkIiIRYSMselZ7z0QAsamZ32EyLsi0qwAanc6GygN1cGx/jtvISKiibybuihrqV8JSF2YuUATmdksKesIqKpRup4LmKt/e2P+HolA3hznpSU0mYDU9BXTEZnXIgmByloLqOcCdyzg/gHwflDwzpj0jOk+JSA1PXOgoJY11+zrw17zlT0FwcpmukB9iIgY0JalpmcO9AkB4+d/YgVZhZcB726oXebqL4O1LuALC6hhIUBEVg6Y/4m1xQRUhZh+LyLdfSNZvSBodg+CLY0BjViIbRNq/F2LCBi3KKOnwCwfSoXd4SEImmotwJcEAEreSlmU0bPZBOhKe0+E+2Z43qAuCHrIBH3mAjUQwWRS8odmEZC6cEUfgYk+lYg7X9li9hAEfeoCdTQ8O2pxZm+vCUDUbF9E/caodLgHQYvJx0GwvhoiYtS12V4RMPT9zGCEl3wuDZ4zwdqcwBfLoGeonw59PzO4yQS0MspEQWz4AXWZoAcXsPvFBUBEbK1MTGgyASKeG/sCtX7e0AX8EwQb6qQ1lQAliCT7S5C6IOhpL+A3FwCUSsZDBcyNgHGLMuMEwv0lR20mGGq1MDw2muGx0YQEWqrJcfjTAiQiZVFGXOPnbiUxF1o/g9/EAEdNPSDUGsi8cSMavHO6XH6cGYy6JAAn6z9zswBRqskVHm9hCzDzRnISUF39uVpcytXiUlRNEeSNkUnYzD7Nuxpr56abmwUIdPLX9L8aPpjoyHDOXb/JHzd+R35RdVW4Y1gI74wbQXTrcGY8+TiLt+3yjwCau25uFqCQCH/MHWq18FTPGHSleG/DzjrlAfKLilmwYSe6UozsGVMXE3wNUcpNN3cXQAX6emKb2cTLj/fHoGlcKirm8q0StzaXbpVwuagEg6bxb0n9sZnN/qDATTcP5wK+y34tJiMT+vXiuQG9CbZUlxPuVfNUNTXjcX3jGB4bzVcHj7H+0Am/5gduBCiwt5QCs8HA0wlxTB7Yh1BrNek3yysIt1npGB5Cl8gwzt8oatAnOjKMjmEhDdpOGTqAif3j+e/vc9hw5CS3q1q4Soi4HaK4rXjdxzw7SoTEZrGpaaT26cFvxo/kie5dsJhM3CgtZ8Wu71m45f/o8Vhr2oe2Iu6x1vxw/hLlDgcAbVoFMS91BOFBVg7+eInZX3zDjbIKurYOJ9xmJTGqA6Piu1Ol65y7fhPdy9J5HZS+++yW9esbyOzOksr31g0MIiT36sbPHu9Hm1bV56FF5XZWHzjKppxTOF06AOsOHicxqgMxbSLI/OXzXLh5C4DO4aF1R2brDh7DpetszjnNjhO5jO3TgxcH9SXcZuW1EUN4fkAfvtx/hK3Hc3HpuldyCtpFN9kbP+g2ZkIHEXmuSQMKjIjrym/Gj2RUfHdsAWZK7JWs2neYDzb/jROXr6ErhQDjE+KYmTwMk8GAS9cREcJtVsJqXERXCk2EITFR2B1Ocq/dwKUUZ67eYOPRU5TddhDTJoJwm5XBXTvxVFwMFQ4H528U0VR7UMqVcXbr1zkNSWmEMemfxhtEP3a/wYZ1i+KVpP5ERYQBUH7bwbqDx/nroeNU1NvVdQoPYVbKMHq1bwtAXkEhS7ZnU1RhJ7ZtJABnrt0gzBrIrJRhxLSpXqlOXi5g6fbsOiuB6g3UhP69eC6xN0E1QTW/qJhVew/zt9N59yXCpap6b0n71fF7EsD8+VpqSOdCEQn1NMig6I68mpRYJ6jd4eTrIydZ+30OZbcdde2MmsYLg/rw0qAETEYDjqoqVu09zFcHj+HSPYtqEGHSgN68PKQfAUYjTpeLNQeO8uX+o1TVM3eb2cykAfFM7N8La81y+eONIj7fe4jdZ3+8y9dXRZvenhqBSIPJPTp7anrW2sZu0K9TO14dmkhcuzYAOKqq2HD0NGsOHKXYXtmgf4/HIpmV8gRdIqutIyf/Kku3Z3tc/z2hXWgwbyYPI6FTOwAuFN5i6fZsTl4paNAu2BLA5IG9GZ/Qs253ebagkM/3HOTAufzGDKzdmDZtcuO5PBIwNn3FzzXhU4DIICtpY4bXCeN0udh6LJcv9x+hsLyiQT+LyciUoYk8k9ALTRPKbztYsesAm3PONEnxxhgd351pPxlEkCUAXSk2Hj3Fp9k/uBVOQq0WXhjUl3F9emA2Vsf1k5cL+GDz/3KtpPrKja5cv9icNuO/mkRAyh8/CTEFGK9YjMbApS9PpGN4CC5dZ8fJs3yx7wgFNYPWR2JUB2YmJ9G2VXXlac/ZH1m+cy83G5HkLcKsgbw24nGeiI0G4HppOcu/3cP+c24BnYggKy8NTmB0fHdMBgNXbpUwc+VfsTuqKpwOZ/vt7/y6uHEfjzvfvO3f3O425tnY1D49EpJ7deNGWTlz/rKBbcdzKa/n51BthjOThzL1iYEEWQK4WV7Bom27WLn3kE/q/JXOKnblniev4CbxHdrSOtjGkz2i6RwRyrFLVxtcqLA7nBw4l893p/NIiunMYyHB3Kqwc/ra9VVb58740tP4d68K6/rirq3DFcC3J//eYPNSiyd7RPPxlEkk9+wGwNbjZ3j9s3Vk555vseKNsTfvAq9/to4NR0+hgJ/ERvPxlOcY1cv90OpqcSk7T/0dgC6RYUq51JK7jXvPjCcn//I3vTu0e3pX7nkWbNhZ9zwyyMYbyUkMjq7eXV65VcJHO3Zz5OIVnyvuCb3at2FWyjA6hYcCcPjCZZbt2M2V4jv3jn77zEiSYqLIyb/yTd9O7Z9pFgEOhyPJZDJlK6Xk4+/2sS/vAkNiOjNlaCJWsxmXrvM/h46zcs+hlufpXsJk0HhpcAKTB/bBZDBw21nFF/sOszfvIkNiOvPzoYmIiKpwOofYzOb9zSIAoMLhWBFoMv2y8fO864Us2ZbN2YLCB6p4Y0RFhDIrZVjd8lwfxRX2P4farL++V//7lv+uREV9a68y/rRtq6Awq9nE1eJSVh84ypJtuygsa1mE9wWK7ZVsO5FLUUUlkUE2LCYjV26VsvaHnHOLtuyfdGLjGse9+jdp1zP6wxVDDRrf+fqg1F9QSjl1UU9ueXv6nvu1bdINka3/MXU3GmkPW7GmMyBpTVG+yQQAbJo9dZnO3ZeTfxQoxeJNc6Yua2p7b4s/kpq+IkOEZl9M9K/yetamtOkzoMk7ZK/vCapNaVNnKKV7fR/P39B1tcRb5aEFFdCx6ZlvCtrChx0YlcKp0OdsTpv+UXP6t6j+mZqeMQy0z0Wky8NRXp0Xg7yy8a2pu5s7Rotui29Km5Ftcqq+wJ+UUg8sFVRKuXT0PxU7Vd+WKA++/MPEwqwETWSBoMb642pNjeJKoTbrSt7dOmfaEV+M6XNBU9MzByIyG8XzIuKTMy6lVCXCWk0zLNrw1i9+8KW8fvvT1NMLloe5LJZJgpogiqcQaeWl1iVK2KmQ9WWVlet2vfvvRV71f9gENMALqw2jh5T21kTvJxi6K/ROoiRCQWCNEHYlqlDQLipcubrSDm/dG3yMNS8+2C3mIzzCI/zL4f8BahGp9yKxYVMAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDItMTdUMDk6NTU6MTYrMDA6MDCTtsL/AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTAyLTE3VDA5OjU1OjE2KzAwOjAw4ut6QwAAAABJRU5ErkJggg==" />
+      <!-- <div class="time hidden" id="timedisplay" style="text-align: right"></div> -->
+      <label id="location"></label>
+      <div>
+        <label>Состояние</label>
+        <label class="switch">
+          <input type="checkbox" id="state" onchange='checkboxClick(this);'>
+          <span class="slider round"></span>
+        </label>
+        <label id="txtstate">Выкл.</label>
+
+      </div>
+      <br>
+      <fieldset id="fieldmode" disabled>
+        <legend>Режим работы </legend>
+        <!-- mode_extract = 0;  //Вытяжка
+            mode_inflow = 1;   //Приток
+            mode_passive = 2; //Пассивный
+            mode_recovery = 3; //Рекуперация -->
+        <input type="radio" id="mode_extract" name="mode" value="0" checked>
+        <label for="mode_extract">Вытяжка</label><br />
+
+        <input type="radio" id="mode_inflow" name="mode" value="1">
+        <label for="mode_inflow">Приток</label><br />
+
+        <input type="radio" id="mode_passive" name="mode" value="2">
+        <label for="mode_passive">Пассивный</label><br />
+
+        <input type="radio" id="mode_recovery" name="mode" value="3">
+        <label for="mode_recovery">Рекуперация</label><br />
+        <br />
+        <div>
+          <div style="font-size: 25px;">Скорость вентилятора</div>
+          <label>Медл.</label>
+          <label class="switch">
+            <input type="checkbox" id="speedFan" onchange='sendData(this.id, Number(this.checked)); '>
+            <!-- checkboxClick(this); -->
+            <span class="slider round"></span>
+          </label>
+          <label id="txtspeedFan">Быстр.</label>
+          <!-- <input type="range" min="0" max="100" value="50" step="10" class="sliderf" id="speedFan"
+                        style="width: 250px;" oninput="handlerslide(this)"> -->
+        </div>
+
+
+      </fieldset>
+      <fieldset id="timework" disabled>
+        <legend>Время работы (мин.)</legend>
+        <input type="radio" id="always" name="time" value="0" checked>
+        <label for="always">Постоянно</label><br />
+
+        <input type="radio" id="periodically" name="time" value="1">
+        <label for="periodically">Периодически</label><br />
+        <div id="divtime" hidden="true">
+          <div class="row">
+            <div class="column">
+              <label style="font-size: 20px;">Вкл. </label>
+              <label for="timeOn" id="lbtimeOn"></label>
+              <input type="range" min="1" max="90" value="50" step="1" class="sliderf" id="timeOn" style="width: 100%;"
+                oninput="handlerslide(this)">
+
+            </div>
+            <div class="column">
+              <label style="font-size: 20px;">Выкл.</label>
+              <label for="timeOff" id="lbtimeOff"></label>
+              <input type="range" min="1" max="90" value="50" step="1" class="sliderf" id="timeOff" style="width: 100%;"
+                oninput="handlerslide(this)">
+            </div>
+          </div>
+        </div>
+      </fieldset>
   </div>
-  <div>
-    <label for="font">Choose font style:</label>
-    <select id="font">
-      <option value="'Open Sans Condensed', sans-serif" selected>Sans-serif</option>
-      <option value="'Bitter', serif">Serif</option>
-      <option value="'Ubuntu Mono'">Monospace</option>
-    </select>
-  </div>
-  <div>
-    <label for="image">Choose image:</label>
-    <select id="image">
-      <option value="images/firefoxos.png" selected>Firefox</option>
-      <option value="images/crocodile.png">Crocodile</option>
-      <option value="images/tortoise.png">Tortoise</option>
-    </select>
-  </div>
-  <div id="ledstatus"><b>LED</b></div>
-  <button id="ledon" type="button" onclick="buttonclick(this);">On</button>
-  <button id="ledoff" type="button" onclick="buttonclick(this);">Off</button>
-
-  <script>
-    var storage;
-    var htmlElem = document.querySelector('html');
-
-    if (storageAvailable('localStorage')) {
-      // Yippee! We can use localStorage awesomeness
-    }
-    else {
-      // Too bad, no localStorage for us
-    }
 
 
-    function storageAvailable(type) {
 
-      try {
-        storage = window[type];
-        var x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
+  <script type="text/javascript">
+    var ajax = {};
+    /*режим работы*/
+    // enum MODE_WORK {
+    //     mode_extract,  //Вытяжка
+    //     mode_inflow,   //Приток
+    //     mode_passive,  //Пассивный
+    //     mode_recovery, //Рекуперация
+    // };
+    var mode_extract = 0;  //Вытяжка
+    var mode_inflow = 1;   //Приток
+    var mode_passive = 2; //Пассивный
+    var mode_recovery = 3; //Рекуперация
+
+    let elementsMode = document.querySelectorAll('input[name="mode"]');
+
+
+    elementsMode.forEach(function (elem) {
+      elem.addEventListener("change", function (event) {
+        var i = event.target.checked ? 1 : 0;
+
+        sendData("mode", event.target.value);
+      });
+    });
+
+    let elementsTime = document.querySelectorAll('input[name="time"]');
+    elementsTime.forEach(function (elem) {
+      elem.addEventListener("change", function (event) {
+        var i = event.target.checked ? 1 : 0;
+        if (event.target.id === "always") {
+          document.getElementById('divtime').hidden = true;
+        } else {
+          document.getElementById('divtime').hidden = false;
+        }
+        sendData("timework", event.target.value);
+      });
+    });
+
+    ajax.x = function () {
+      var xhr;
+      if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+      } else {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
       }
-      catch (e) {
-        return e instanceof DOMException && (
-          // everything except Firefox
-          e.code === 22 ||
-          // Firefox
-          e.code === 1014 ||
-          // test name field too, because code might not be present
-          // everything except Firefox
-          e.name === 'QuotaExceededError' ||
-          // Firefox
-          e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-          // acknowledge QuotaExceededError only if there's something already stored
-          (storage && storage.length !== 0);
+      return xhr;
+    };
+
+    function sendData(argname, argdat) {
+      let js = "{" + argname + ":" + argdat + "}";
+      send(js);
+      // var data = {};
+      // data[argname] = argdat;
+
+      // ajax.get('config', data, function (response) {// + Math.random()
+      //   // if (response != "OK") {
+      //   //     alert("Ошибка! Повторите попытку");
+      //   // }
+      // }, true);
+    }
+
+    // ajax.send = function (url, callback, method, data, async) {
+    //   // submit_disabled(true);
+    //   if (async === undefined) {
+    //     async = true;
+    //   }
+    //   var x = ajax.x();
+    //   x.open(method, url, async);
+    //   x.onreadystatechange = function () {
+    //     if (x.readyState == 4) {
+    //       // submit_disabled(false);
+    //       callback(x.responseText)
+    //     }
+    //   };
+    //   if (method == 'POST') {
+    //     x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //   }
+    //   x.send(data)
+    // };
+
+    // ajax.get = function (url, data, callback, async) {
+    //   var query = [];
+    //   for (var key in data) {
+    //     query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+    //   }
+    //   ajax.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, async)
+    // };
+
+
+    var config = { mode: 3, speedFan: 100, state: 0, timeOff: 60, timeOn: 60 };
+
+    config.mode = 5;
+    document.getElementById("sm").style.visibility = 'visible';
+    setTimeout(timer500ms, 500);
+
+    function timer500ms() {
+      document.getElementById("sm").style.visibility = 'hidden';
+    }
+
+    function receiveData(response) {
+      var json = JSON.parse(response);
+      document.getElementById("sm").style.visibility = 'visible';
+      setTimeout(timer500ms, 500);
+      for (var key in json) {
+        var data = json[key];
+        switch (key) {
+          case "mode":
+            var id = "";
+            config.mode = json[key];
+            switch (json[key]) {
+              case mode_extract: //Вытяжка
+                id = "mode_extract";
+                break;
+              case mode_inflow:   //Приток
+                id = "mode_inflow";
+                break;
+              case mode_passive:  //Пассивный
+                id = "mode_passive";
+                break;
+              case mode_recovery: //Рекуперация
+                id = "mode_recovery";
+                break;
+            }
+            document.getElementById(id).checked = true;
+            break;
+          case "speedFan":
+            config.speedFan = json[key];
+            document.getElementById(key).value = json[key];
+            break;
+          case "state":
+            config.state = json[key];
+            changeState(json[key]);
+            break;
+          case "timework":
+            if (json[key]) {
+              document.getElementById("periodically").checked = true;
+              document.getElementById('divtime').hidden = false;
+            } else {
+              document.getElementById("always").checked = true;
+              document.getElementById('divtime').hidden = true;
+            }
+            break;
+          case "timeOn":
+            document.getElementById(key).value = json[key];
+            document.getElementById("lbtimeOn").innerHTML = json[key];
+            break;
+          case "timeOff":
+            document.getElementById(key).value = json[key];
+            document.getElementById("lbtimeOff").innerHTML = json[key];
+            break;
+        }
+        // changeValueById(key, json[key]);
       }
     }
 
-
-
-
-    if (!storage.getItem('bgcolor')) {
-      populateStorage();
-    } else {
-      setStyles();
-      storage.setItem('bgcolor', 'FF00FF');
+    function getData() {
+      send('?data');
+      // ajax.get('config.json' + '?' + Math.random(), {}, function (response) {
+      //   if (response != 'FileNotFound' && response[0] == "{") {
+      //     document.getElementById('main').disabled = false;
+      //     receiveData(response);
+      //   }
+      // }, true);
     }
 
 
-    function setStyles() {
-      var currentColor = storage.getItem('bgcolor');
-      var currentFont = storage.getItem('font');
-      var currentImage = storage.getItem('image');
 
-      document.getElementById('bgcolor').value = currentColor;
-      document.getElementById('font').value = currentFont;
-      document.getElementById('image').value = currentImage;
 
-      htmlElem.style.backgroundColor = '#' + currentColor;
-      // pElem.style.fontFamily = currentFont;
-      // imgElem.setAttribute('src', currentImage);
+    function changeState(state) {
+      if (state != 0) {
+        document.getElementById("state").checked = true;
+        document.getElementById("txtstate").innerHTML = "Вкл.";
+        document.getElementById('fieldmode').disabled = false;
+        document.getElementById('timework').disabled = false;
+
+      }
+      else {
+        document.getElementById("state").checked = false;
+        document.getElementById("txtstate").innerHTML = "Выкл.";
+        document.getElementById('fieldmode').disabled = true;
+        document.getElementById('timework').disabled = true;
+      }
+
     }
 
-
-    function populateStorage() {
-      storage.setItem('bgcolor', 'FF0000');
-     // storage.setItem('bgcolor', document.getElementById('bgcolor').value);
-      storage.setItem('font', document.getElementById('font').value);
-      storage.setItem('image', document.getElementById('image').value);
-
-      setStyles();
+    function handlerslide(slide) {
+      sendData(slide.id, slide.value);
+      var lb = document.getElementById("lb" + slide.id);
+      if (lb)
+        lb.innerHTML = slide.value;
     }
 
+    function checkboxClick(checkb) {
+
+      if (checkb.checked) {
+        changeState(1);
+        sendData(checkb.id, 1);
+      } else {
+        changeState(0);
+        sendData(checkb.id, 0);
+      }
+    }
+
+        // function getDate() {
+        //     var date = new Date();
+        //     var year = date.getFullYear();
+        //     var month = date.getMonth() + 1;
+        //     var day = date.getDate();
+        //     var hours = date.getHours();
+        //     var minutes = date.getMinutes();
+        //     var seconds = date.getSeconds();
+        //     //По надобности условие ниже повторить с minutes и hours
+        //     if (day <= 9) day = "0" + day;
+        //     if (month <= 9) month = "0" + month;
+        //     if (hours <= 9) hours = "0" + hours;
+        //     if (minutes <= 9) minutes = "0" + minutes;
+        //     if (seconds <= 9) seconds = "0" + seconds;
+        //     document.getElementById('timedisplay').innerHTML = day + '.' + month + '.' + year + " " + hours + ':' + minutes + ':' + seconds;
+        // }
+        // setInterval(getDate, 1000);
   </script>
+  </fieldset>
 </body>
+<script src="bluetooth.js"></script>
+<script>
+  var timerState;
+  function StateConnect(state) {
+    if (state) {
+      document.getElementById('connectBLE').innerText = 'Отключить';
+      getData();
+      timerState = setInterval(getData, 1000);
+    } else {
+      clearTimeout(timerState);
+      document.getElementById('connectBLE').innerText = 'Подключить';
+    }
+  }
+
+  // Проверка того, что наш браузер поддерживает Service Worker API.
+  if ('serviceWorker' in navigator) {
+    // Весь код регистрации у нас асинхронный.
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => navigator.serviceWorker.ready.then((worker) => {
+        worker.sync.register('syncdata');
+      }))
+      .catch((err) => console.log(err));
+  }
+</script>
 
 </html>
