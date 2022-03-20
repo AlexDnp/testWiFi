@@ -607,7 +607,7 @@
   // Проверка того, что наш браузер поддерживает Service Worker API.
   if ('serviceWorker' in navigator) {
     // Весь код регистрации у нас асинхронный.
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('./swFan.js')
       .then(() => navigator.serviceWorker.ready.then((worker) => {
         worker.sync.register('syncdata');
       }))
