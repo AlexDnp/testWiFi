@@ -465,7 +465,7 @@
     }
 
     function receiveData(response) {
-     // document.getElementById("sm").style.visibility = 'visible';
+      // document.getElementById("sm").style.visibility = 'visible';
       var json = JSON.parse(response);
       document.getElementById("sm").style.visibility = 'visible';
       setTimeout(timer500ms, 500);
@@ -494,7 +494,10 @@
             break;
           case "sf":
             config.speedFan = json[key];
-            document.getElementById(key).value = json[key];
+            if (json[key])
+              document.getElementById(key).checked = true;
+            else
+              document.getElementById(key).checked = false;
             break;
           case "sd":
             config.state = json[key];
