@@ -296,7 +296,7 @@
       <div>
         <label>Состояние</label>
         <label class="switch">
-          <input type="checkbox" id="state" onchange='checkboxClick(this);'>
+          <input type="checkbox" id="sd" onchange='checkboxClick(this);'>
           <span class="slider round"></span>
         </label>
         <label id="txtstate">Выкл.</label>
@@ -309,28 +309,28 @@
             mode_inflow = 1;   //Приток
             mode_passive = 2; //Пассивный
             mode_recovery = 3; //Рекуперация -->
-        <input type="radio" id="mode_extract" name="mode" value="0" checked>
+        <input type="radio" id="mode_extract" name="md" value="0" checked>
         <label for="mode_extract">Вытяжка</label><br />
 
-        <input type="radio" id="mode_inflow" name="mode" value="1">
+        <input type="radio" id="mode_inflow" name="md" value="1">
         <label for="mode_inflow">Приток</label><br />
 
-        <input type="radio" id="mode_passive" name="mode" value="2">
+        <input type="radio" id="mode_passive" name="md" value="2">
         <label for="mode_passive">Пассивный</label><br />
 
-        <input type="radio" id="mode_recovery" name="mode" value="3">
+        <input type="radio" id="mode_recovery" name="md" value="3">
         <label for="mode_recovery">Рекуперация</label><br />
         <br />
         <div>
           <div style="font-size: 25px;">Скорость вентилятора</div>
           <label>Медл.</label>
           <label class="switch">
-            <input type="checkbox" id="speedFan" onchange='sendData(this.id, Number(this.checked)); '>
+            <input type="checkbox" id="sf" onchange='sendData(this.id, Number(this.checked)); '>
             <!-- checkboxClick(this); -->
             <span class="slider round"></span>
           </label>
           <label id="txtspeedFan">Быстр.</label>
-          <!-- <input type="range" min="0" max="100" value="50" step="10" class="sliderf" id="speedFan"
+          <!-- <input type="range" min="0" max="100" value="50" step="10" class="sliderf" id="sf"
                         style="width: 250px;" oninput="handlerslide(this)"> -->
         </div>
 
@@ -347,15 +347,15 @@
           <div class="row">
             <div class="column">
               <label style="font-size: 20px;">Вкл. </label>
-              <label for="timeOn" id="lbtimeOn"></label>
-              <input type="range" min="1" max="90" value="50" step="1" class="sliderf" id="timeOn" style="width: 100%;"
+              <label for="to" id="lbto"></label>
+              <input type="range" min="1" max="90" value="50" step="1" class="sliderf" id="to" style="width: 100%;"
                 oninput="handlerslide(this)">
 
             </div>
             <div class="column">
               <label style="font-size: 20px;">Выкл.</label>
-              <label for="timeOff" id="lbtimeOff"></label>
-              <input type="range" min="1" max="90" value="50" step="1" class="sliderf" id="timeOff" style="width: 100%;"
+              <label for="tf" id="lbtf"></label>
+              <input type="range" min="1" max="90" value="50" step="1" class="sliderf" id="tf" style="width: 100%;"
                 oninput="handlerslide(this)">
             </div>
           </div>
@@ -379,14 +379,14 @@
     var mode_passive = 2; //Пассивный
     var mode_recovery = 3; //Рекуперация
 
-    let elementsMode = document.querySelectorAll('input[name="mode"]');
+    let elementsMode = document.querySelectorAll('input[name="md"]');
 
 
     elementsMode.forEach(function (elem) {
       elem.addEventListener("change", function (event) {
         var i = event.target.checked ? 1 : 0;
 
-        sendData("mode", event.target.value);
+        sendData("md", event.target.value);
       });
     });
 
@@ -454,7 +454,7 @@
     // };
 
 
-    var config = { mode: 3, speedFan: 100, state: 0, timeOff: 60, timeOn: 60 };
+    var config = { mode: 3, speedFan: 100, state: 0, tf: 60, to: 60 };
 
     config.mode = 5;
     document.getElementById("sm").style.visibility = 'visible';
@@ -473,7 +473,7 @@
       for (var key in json) {
         var data = json[key];
         switch (key) {
-          case "mode":
+          case "md":
             var id = "";
             config.mode = json[key];
             switch (json[key]) {
@@ -492,15 +492,15 @@
             }
             document.getElementById(id).checked = true;
             break;
-          case "speedFan":
+          case "sf":
             config.speedFan = json[key];
             document.getElementById(key).value = json[key];
             break;
-          case "state":
+          case "sd":
             config.state = json[key];
             changeState(json[key]);
             break;
-          case "timework":
+          case "ws":
             if (json[key]) {
               document.getElementById("periodically").checked = true;
               document.getElementById('divtime').hidden = false;
@@ -509,13 +509,13 @@
               document.getElementById('divtime').hidden = true;
             }
             break;
-          case "timeOn":
+          case "to":
             document.getElementById(key).value = json[key];
-            document.getElementById("lbtimeOn").innerHTML = json[key];
+            document.getElementById("lbto").innerHTML = json[key];
             break;
-          case "timeOff":
+          case "tf":
             document.getElementById(key).value = json[key];
-            document.getElementById("lbtimeOff").innerHTML = json[key];
+            document.getElementById("lbtf").innerHTML = json[key];
             break;
         }
         // changeValueById(key, json[key]);
@@ -537,14 +537,14 @@
 
     function changeState(state) {
       if (state != 0) {
-        document.getElementById("state").checked = true;
+        document.getElementById("sd").checked = true;
         document.getElementById("txtstate").innerHTML = "Вкл.";
         document.getElementById('fieldmode').disabled = false;
         document.getElementById('timework').disabled = false;
 
       }
       else {
-        document.getElementById("state").checked = false;
+        document.getElementById("sd").checked = false;
         document.getElementById("txtstate").innerHTML = "Выкл.";
         document.getElementById('fieldmode').disabled = true;
         document.getElementById('timework').disabled = true;
