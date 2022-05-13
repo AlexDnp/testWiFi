@@ -610,6 +610,7 @@
     navigator.serviceWorker.register('./swFan.js')
       .then(() => navigator.serviceWorker.ready.then((worker) => {
         worker.sync.register('syncdata');
+        console.log("OK");
       }))
       .catch((err) => console.log(err));
   }
