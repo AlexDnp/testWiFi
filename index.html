@@ -521,6 +521,9 @@
             document.getElementById(key).value = json[key];
             document.getElementById("lbtf").innerHTML = json[key];
             break;
+          case "nm":
+            document.getElementById(key).value = json[key];
+            break;
         }
         // changeValueById(key, json[key]);
       }
@@ -544,7 +547,7 @@
         document.getElementById("sd").checked = true;
         document.getElementById("txtstate").innerHTML = "Вкл.";
         document.getElementById('fieldmode').disabled = false;
-        document.getElementById('sf').disabled = false;        
+        document.getElementById('sf').disabled = false;
         document.getElementById('timework').disabled = false;
 
       }
@@ -553,12 +556,12 @@
         document.getElementById("txtstate").innerHTML = "Выкл.";
         document.getElementById('fieldmode').disabled = true;
         document.getElementById('timework').disabled = true;
-        document.getElementById('sf').disabled = true;   
+        document.getElementById('sf').disabled = true;
       }
 
     }
 
-    function changevalue(slide){
+    function changevalue(slide) {
       var lb = document.getElementById("lb" + slide.id);
       if (lb)
         lb.innerHTML = slide.value;
@@ -614,8 +617,8 @@
       clearTimeout(timerState);
       document.getElementById('connectBLE').innerText = 'Подключить';
       document.getElementById('main').disabled = true;
-      document.getElementById('sf').checked = false;  
-      document.getElementById('sd').checked = false;    
+      document.getElementById('sf').checked = false;
+      document.getElementById('sd').checked = false;
     }
   }
 
