@@ -113,7 +113,7 @@ function connectDeviceAndCacheCharacteristic(device) {
     then(service => {
       log('Service found, getting characteristic...');
 
-      return service.getCharacteristic(0xFFE1);
+      return service.getCharacteristic(0xFFE1);//0xFFE2
     }).
     then(characteristic => {
       log('Characteristic found');
@@ -173,14 +173,14 @@ function receive(data) {
 }
 
 // Вывод в терминал
-function log(data, type = '') {
+//function log(data, type = '') {
   // terminalContainer.insertAdjacentHTML('beforeend',
   //   '<div' + (type ? ' class="' + type + '"' : '') + '>' + data + '</div>');
   // terminalContainer.scrollTop = terminalContainer.scrollHeight;
   // let el = terminalContainer.querySelectorAll('div');
   // if (el.length > 20)
   //   el[0].remove();
-}
+//}
 
 // Отключиться от подключенного устройства
 function disconnect() {
@@ -233,8 +233,8 @@ function dataTransfer() {
     else {
       writeToCharacteristic(characteristicCache, data);
     }
-    var dat = 'TX: ' + data;
-    log(dat, 'out');
+    // var dat = 'TX: ' + data;
+    // log(dat, 'out');
     isBusy = true;
     timerBusy = setTimeout(() => {
       isBusy = false;
@@ -242,6 +242,10 @@ function dataTransfer() {
         dataTransfer();
     }, 1000);
   }
+}
+
+function log(data){
+  console.log(data);
 }
 
 // Отправить данные подключенному устройству
@@ -255,7 +259,15 @@ function send(data) {
   data += '\n';
   arrSend.push(data);
   dataTransfer();
+  // var bf= new Uint8Array(3);
+  // bf[0]=0xe9;
+  // bf[1]=0x01;
+  // bf[2]=0x04;
+  // writeToCharacteristicValue(characteristicCache,bf);
+}
 
+function writeToCharacteristicValue(characteristic, data) {
+  characteristic.writeValue(data);
 }
 
 // Записать значение в характеристику
