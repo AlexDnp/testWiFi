@@ -271,7 +271,23 @@ function writeToCharacteristicValue(characteristic, data) {
 }
 
 // Записать значение в характеристику
-function writeToCharacteristic(characteristic, data) {
+function writeToCharacteristic(characteristic, str) {
   //characteristic.writeValue(new TextEncoder().encode(data));
-  characteristic.writeValue(data);
+  var df = new Uint8Array(str.length);
+  for (var i = 0; i < str.length; i++) {
+    var charcode = str.charCodeAt(i);
+    if (charcode < 0x80) {
+      df[i] = charcode;
+    }
+    else if (charcode <= 0x04FF || charcode >= 0x0410) {
+      df[i] = charcode - 0x0350;
+    }
+    else if (charcode === 0x2116) {
+      df[i] = 185;
+    }
+    else {
+      df[i] = 169;
+    }
+  }
+  characteristic.writeValue(df);
 }
