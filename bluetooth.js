@@ -272,5 +272,6 @@ function writeToCharacteristicValue(characteristic, data) {
 
 // Записать значение в характеристику
 function writeToCharacteristic(characteristic, data) {
-  characteristic.writeValue(new TextEncoder().encode(data));
+  //characteristic.writeValue(new TextEncoder().encode(data));
+  characteristic.writeValue(data);
 }
